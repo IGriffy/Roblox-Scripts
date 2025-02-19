@@ -6,8 +6,6 @@ local Folder = Instance.new("Folder")
 Folder.Name = "_Highlight_Players_"
 Folder.Parent = CoreGui
 
-_G.WhiteList = {"piska_bobrafsko", "KingOvCursed", "Crankbread8743", "Luffy_77787"}
-
 local function ChangeHighlight(Object, FillColor, FillTransparency, OutlineColor, OutlineTransparency)
     local Highlight = Folder:FindFirstChild(Object.Name) or Instance.new("Highlight", Folder)
     Highlight.Name = Object.Name
