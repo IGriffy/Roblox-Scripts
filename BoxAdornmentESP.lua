@@ -10,8 +10,6 @@ local Folder = Instance.new("Folder")
 Folder.Name = "_BoxHandleAdornment_Players_"
 Folder.Parent = CoreGui
 
-_G.WhiteList = {"piska_bobrafsko", "KingOvCursed", "Crankbread8743", "Luffy_77787"}
-
 local function ChangeBHA(Object, Color)
     local ObjectsFolder = Folder:FindFirstChild(Object.Name) or Instance.new("Folder", Folder)
     ObjectsFolder.Name = Object.Name
