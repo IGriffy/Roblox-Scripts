@@ -22,7 +22,6 @@ getgenv().FlySpeed = 0.5
 
 getgenv().IsPlusKeyHeld = false
 getgenv().IsMinusKeyHeld = false
-
 -------------------- Function's ---------------------
 
 local function TeleportToMouse()
