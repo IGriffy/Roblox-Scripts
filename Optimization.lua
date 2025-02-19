@@ -1,3 +1,5 @@
+if OptimizationNeadoScrptExecuted then print("Optimization script already executed") return end
+
 local Light = game:GetService("Lighting")
 Light.Technology = Enum.Technology.Voxel
 Light.GlobalShadows = false
@@ -21,3 +23,5 @@ end
 workspace.ChildAdded:Connect(function(obj)
     ObjectOptimize(obj)
 end)
+
+getgenv().OptimizationNeadoScrptExecuted = true
