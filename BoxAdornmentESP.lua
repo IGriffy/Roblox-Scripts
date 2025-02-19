@@ -1,3 +1,5 @@
+if BoxAdornmentESPNeadoScriptExecuted then print("BoxAdornment ESP script already executed") return end
+
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
@@ -56,3 +58,5 @@ while true do
     end
     task.wait(1)
 end
+
+getgenv().BoxAdornmentESPNeadoScriptExecuted = true
