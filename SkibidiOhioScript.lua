@@ -2,6 +2,7 @@ if getgenv().SkibidiOhioScript then print("SkibidiOhioScript alredy executed!") 
 
 local RunService = game:GetService("RunService")
 local UIS = game:GetService("UserInputService")
+local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 
 local Player = Players.LocalPlayer
@@ -15,8 +16,22 @@ local Camera = workspace.CurrentCamera
 getgenv().TargetName = nil
 getgenv().FlingEnabled = false
 
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Parent = CoreGui
+local TextLabel = Instance.new("TextLabel")
+TextLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+TextLabel.Position = UDim2.new(0.8, 0, 0.9, 0)
+TextLabel.Size = UDim2.new(0.125, 0, 0.1, 0)
+TextLabel.BackgroundTransparency = 1
+TextLabel.TextColor3 = Color3.fromRGB(85, 255, 127)
+TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+TextLabel.TextStrokeTransparency = 0
+TextLabel.TextSize = 20
+TextLabel.Text = ""
+TextLabel.Parent = ScreenGui
+
 local function ReturnTargetCharacter(TargetPlayer)
-    local Target_Player = Players:FindFirstChild(Target_Player or Target_Player.Name)
+    local Target_Player = Players:FindFirstChild(TargetPlayer.Name or Target_Player)
     local Target_Character = Target_Player.Character or Target_Player.CharacterAdded:Wait()
     local Target_RootPart = Target_Character:FindFirstChild("HumanoidRootPart")
     local Target_Humanoid = Target_Character:FindFirstChild("Humanoid")
@@ -67,10 +82,10 @@ UIS.InputEnded:Connect(function(Input, GameProcessed)
     if GameProcessed then return end
     if Input.KeyCode == _G.FlingEnabledBind then
         getgenv().FlingEnabled = not getgenv().FlingEnabled
-        print(FlingEnabled)
+        TextLabel.Text = "\nEnabled: "..tostring(FlingEnabled).."\nTarget: "..tostring(TargetName)or"None"
     elseif Input.KeyCode == _G.ChangePlayerBind then
         getgenv().TargetName = GetClosestPlayerToCursor()
-        print(TargetName)
+        TextLabel.Text = "\nEnabled: "..tostring(FlingEnabled).."\nTarget: "..tostring(TargetName)or"None"
     end
 end)
 
@@ -82,7 +97,6 @@ end)
 
 game:GetService("RunService").Stepped:Connect(function()
     if getgenv().FlingEnabled then
-    task.wait(0.3)
         local TPlr, TChar, TRP, TH = ReturnTargetCharacter(TargetName)
         if TRP then
             RootPart.CFrame = CFrame.new(TRP.CFrame.Position + Vector3.new(ReturnRandomNum(-3,3), 0, ReturnRandomNum(-3,3)))*RootPart.CFrame.Rotation
