@@ -100,7 +100,7 @@ end)
 game:GetService("RunService").Stepped:Connect(function()
     if getgenv().FlingEnabled then
         local TPlr, TChar, TRP, TH = ReturnTargetCharacter(TargetName)
-        if TRP then
+        if TRP and TRP.CFrame and TH then
             RootPart.CFrame = CFrame.new(TRP.CFrame.Position + Vector3.new(ReturnRandomNum(-3,3), 0, ReturnRandomNum(-3,3)))*RootPart.CFrame.Rotation
             RootPart.CFrame = CFrame.lookAt(RootPart.Position, TRP.Position)
             Camera.CameraSubject = TH
