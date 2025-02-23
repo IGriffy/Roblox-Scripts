@@ -16,7 +16,7 @@ getgenv().TargetName = nil
 getgenv().FlingEnabled = false
 
 local function ReturnTargetCharacter(TargetPlayer)
-    local Target_Player = Players:FindFirstChild(TargetPlayer.Name or Target_Player)
+    local Target_Player = Players:FindFirstChild(Target_Player or Target_Player.Name)
     local Target_Character = Target_Player.Character or Target_Player.CharacterAdded:Wait()
     local Target_RootPart = Target_Character:FindFirstChild("HumanoidRootPart")
     local Target_Humanoid = Target_Character:FindFirstChild("Humanoid")
