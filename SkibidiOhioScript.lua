@@ -32,6 +32,11 @@ TextLabel.TextSize = 20
 TextLabel.Text = ""
 TextLabel.Parent = ScreenGui
 
+local function GetRoot(Char)
+	local RootPart = Char:FindFirstChild('HumanoidRootPart') or Char:FindFirstChild('Torso') or Char:FindFirstChild('UpperTorso')
+	return RootPart
+end
+
 local function ReturnTargetCharacter(TargetPlayer)
     local Target_Player = Players:FindFirstChild(TargetPlayer.Name or Target_Player)
     local Target_Character = Target_Player.Character or Target_Player.CharacterAdded:Wait()
@@ -100,9 +105,10 @@ end)
 game:GetService("RunService").Stepped:Connect(function()
     if getgenv().FlingEnabled then
         local TPlr, TChar, TRP, TH = ReturnTargetCharacter(TargetName)
-        if TRP and TRP.CFrame and RootPart and TH then
-            RootPart.CFrame = CFrame.new(TRP.CFrame.Position + Vector3.new(ReturnRandomNum(-3,3), 0, ReturnRandomNum(-3,3)))*RootPart.CFrame.Rotation
-            RootPart.CFrame = CFrame.lookAt(RootPart.Position, TRP.Position)
+        local Root = GetRoot(Player.Character)
+        if TRP and TRP.CFrame and Root and TH then
+            Root.CFrame = CFrame.new(TRP.CFrame.Position + Vector3.new(ReturnRandomNum(-3,3), 0, ReturnRandomNum(-3,3)))*RootPart.CFrame.Rotation
+            Root.CFrame = CFrame.lookAt(RootPart.Position, TRP.Position)
             Camera.CameraSubject = TH
         end
     else
