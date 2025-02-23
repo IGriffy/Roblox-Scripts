@@ -110,6 +110,6 @@ end)
 
 Player.OnTeleport:Connect(function(State)
     loadstring(game:HttpGet("https://raw.githubusercontent.com/IGriffy/Roblox-Scripts/refs/heads/main/SkibidiOhioScript.lua"))()
-end
+end)
 
 getgenv().SkibidiOhioScript = true
