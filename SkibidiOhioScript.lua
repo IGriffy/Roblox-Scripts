@@ -103,7 +103,7 @@ Player.CharacterAdded:Connect(function(NewCharacter)
 end)
 
 game:GetService("RunService").Stepped:Connect(function()
-    if getgenv().FlingEnabled then
+    if getgenv().FlingEnabled and TargetName then
         local TPlr, TChar, TRP, TH = ReturnTargetCharacter(TargetName)
         local Root = GetRoot(Player.Character)
         if TRP and TRP.CFrame and Root and TH then
