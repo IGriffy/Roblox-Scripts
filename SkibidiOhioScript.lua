@@ -117,11 +117,11 @@ game:GetService("RunService").Stepped:Connect(function()
 end)
 
 task.spawn(function()
-	task.wait(15)
+	task.wait(25)
 	for i, v in pairs(workspace.Map:GetDescendants()) do
 		v:Destroy()
 	end
-end
+end)
 
 queue_on_teleport('_G.FlingEnabledBind = Enum.KeyCode.X _G.ChangePlayerBind = Enum.KeyCode.C loadstring(game:HttpGet("https://raw.githubusercontent.com/IGriffy/Roblox-Scripts/refs/heads/main/SkibidiOhioScript.lua"))()')
 
