@@ -112,7 +112,7 @@ game:GetService("RunService").Stepped:Connect(function()
             Camera.CameraSubject = TH
         end
     elseif not FlingEnabled then
-        Camera.CameraSubject = Character:FindFirstChild("Humanoid")
+        Camera.CameraSubject = Player.Character:FindFirstChild("Humanoid")
     end
 end)
 
