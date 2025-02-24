@@ -37,8 +37,8 @@ local function GetRoot(Char)
 	return RootPart
 end
 
-local function ReturnTargetCharacter(TargetPlayer)
-    local Target_Player = Players:FindFirstChild(TargetPlayer or Target_Player.Name)
+local function ReturnTargetCharacter(TargetPlayerN)
+    local Target_Player = Players:FindFirstChild(TargetPlayerN.Name)
     local Target_Character = Target_Player.Character or Target_Player.CharacterAdded:Wait()
     local Target_RootPart = Target_Character:FindFirstChild("HumanoidRootPart")
     local Target_Humanoid = Target_Character:FindFirstChild("Humanoid")
