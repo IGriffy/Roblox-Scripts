@@ -77,6 +77,12 @@ Player.CharacterAdded:Connect(function(NewCharacter)
     RootPart = Character:WaitForChild("HumanoidRootPart")
 end)
 
+workspace.ChildAdded:Connect(function(Child)
+    if Child:IsA("Model") then
+        CheckGun()
+    end
+end)
+
 while true do
     for _, Plr in Players:GetChildren() do
         if Plr ~= Player and Plr.Character then
@@ -91,6 +97,5 @@ while true do
             end
         end
     end
-    CheckGun()
     task.wait(1)
 end
