@@ -111,7 +111,7 @@ game:GetService("RunService").Stepped:Connect(function()
             Root.CFrame = CFrame.lookAt(Root.Position, TRP.Position)
             Camera.CameraSubject = TH
         end
-    else
+    elseif not getgenv().FlingEnabled then
         Camera.CameraSubject = Humanoid
     end
 end)
