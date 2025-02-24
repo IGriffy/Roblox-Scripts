@@ -69,7 +69,7 @@ local function CheckGun()
             })
             end
         end
-    end
+    end)
 end
 
 Player.CharacterAdded:Connect(function(NewCharacter)
