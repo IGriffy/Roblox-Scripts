@@ -32,6 +32,8 @@ TextLabel.TextSize = 20
 TextLabel.Text = ""
 TextLabel.Parent = ScreenGui
 
+local MessageTable = {"Ez", "ez", "Cry about it", "cry about it", "Kid", "kid", "Cry", "cry", "Venom", "venom"}
+
 local function GetRoot(Char)
 	local RootPart = Char:FindFirstChild('HumanoidRootPart') or Char:FindFirstChild('Torso') or Char:FindFirstChild('UpperTorso')
 	return RootPart
@@ -85,6 +87,11 @@ local function ReturnRandomNum(num1, num2)
     return a==0 and num1 or a==1 and num2
 end
 
+local function SayChatRandomMessage()
+	local Message = MessageTable[math.random(1, #MessageTable)]
+	game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):FindFirstChild("SayMessageRequest"):FireServer(tostring(Message), "All")
+end
+
 UIS.InputEnded:Connect(function(Input, GameProcessed)
     if GameProcessed then return end
     if Input.KeyCode == _G.FlingEnabledBind then
@@ -114,6 +121,13 @@ game:GetService("RunService").Stepped:Connect(function()
     elseif not FlingEnabled then
         Camera.CameraSubject = Player.Character:FindFirstChild("Humanoid")
     end
+end)
+
+task.spawn(function()
+	while true do
+		SayChatRandomMessage()
+		task.wait(25)
+	end
 end)
 
 queue_on_teleport('_G.FlingEnabledBind = Enum.KeyCode.X _G.ChangePlayerBind = Enum.KeyCode.C loadstring(game:HttpGet("https://raw.githubusercontent.com/IGriffy/Roblox-Scripts/refs/heads/main/SkibidiOhioScript.lua"))()')
