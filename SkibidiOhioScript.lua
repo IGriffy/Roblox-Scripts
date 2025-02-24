@@ -32,7 +32,7 @@ TextLabel.TextSize = 20
 TextLabel.Text = ""
 TextLabel.Parent = ScreenGui
 
-local MessageTable = {"Ez", "ez", "Cry about it", "cry about it", "Kid", "kid", "Cry", "cry", "Venom", "venom"}
+local MessageTable = {"Ez", "Cry about it", "Kid", "Cry", "Venom", "L", "Where's your mom?", "Noobs", "Get good", "What’s wrong with you?", "Are you even trying?", "Who taught you?", "First time?", "Potato skills", "Need a tutorial?", "Grandma’s student", "Carrying backwards", "Boring strategy", "Rocks have better reflexes", "Lobby decoration", "Cereal box skills", "Upside-down keyboard", "Worse than a bot", "Need a map?", "Mom wants her skills back", "Tutorial’s reason", "Uninstall yourself", "Are you awake?", "Placeholder player", "Eyes-closed pick", "Artistic failure", "Asking for help?", "MVP of losing", "Too embarrassed to roast", "Did you learn this from your grandma?", "You’re carrying the team... backwards!", "Is your strategy to bore them to death?", "I’ve seen rocks with better reflexes.", "Are you here to decorate the lobby?", "You’re so bad, you make me look good.", "Did you get your skills from a cereal box?", "Is your keyboard upside down?", "You’re like a bot, but worse.", "Do you need a map to find the exit?", "Your mom called, she wants her skills back.", "You’re the reason we have tutorials.", "I’d say ‘uninstall,’ but you’re already doing nothing.", "Are you even awake right now?", "You’re like a placeholder for a real player.", "Did you pick your character by closing your eyes?", "You’re so bad, it’s almost artistic.", "Is this your way of asking for help?", "You’re the MVP... of losing.", "I’d roast you, but I don’t want to embarrass you further.", "Where's your mom at?", "You guys are noobs!", "What’s wrong with you, bro?", "Are you even trying?", "Get good, loser!", "Who taught you how to play?", "Is this your first time or something?", "You’re so bad, it’s almost impressive.", "Do you need a tutorial or what?", "I’ve seen better skills from a potato."}
 
 local function GetRoot(Char)
 	local RootPart = Char:FindFirstChild('HumanoidRootPart') or Char:FindFirstChild('Torso') or Char:FindFirstChild('UpperTorso')
@@ -136,11 +136,19 @@ task.spawn(function()
 			SayChatRandomMessage("gl")
 			bool = true
 		end
-		task.wait(tonumber(math.random(15, 50)))
+		task.wait(tonumber(math.random(15, 20)))
 		SayChatRandomMessage()
 	end
 end)
 
-queue_on_teleport('_G.FlingEnabledBind = Enum.KeyCode.X _G.ChangePlayerBind = Enum.KeyCode.C loadstring(game:HttpGet("https://raw.githubusercontent.com/IGriffy/Roblox-Scripts/refs/heads/main/SkibidiOhioScript.lua"))()')
+
+local Map = workspace:FindFirstChild("Map")
+local Borders = Map:FindFirstChild("ArenaSurface"):FindFirstChild("Borders")
+
+if Borders then
+	Borders:Destroy()
+end
+
+--queue_on_teleport('_G.FlingEnabledBind = Enum.KeyCode.X _G.ChangePlayerBind = Enum.KeyCode.C loadstring(game:HttpGet("https://raw.githubusercontent.com/IGriffy/Roblox-Scripts/refs/heads/main/SkibidiOhioScript.lua"))()')
 
 getgenv().SkibidiOhioScript = true
