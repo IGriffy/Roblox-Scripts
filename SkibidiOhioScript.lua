@@ -15,8 +15,8 @@ local Humanoid = Character:FindFirstChild("Humanoid")
 local Mouse = Player:GetMouse()
 local Camera = workspace.CurrentCamera
 
-getgenv().TargetName = nil
-getgenv().FlingEnabled = false
+local TargetName = nil
+local FlingEnabled = false
 
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Parent = CoreGui
@@ -88,10 +88,10 @@ end
 UIS.InputEnded:Connect(function(Input, GameProcessed)
     if GameProcessed then return end
     if Input.KeyCode == _G.FlingEnabledBind then
-        getgenv().FlingEnabled = not getgenv().FlingEnabled
+        FlingEnabled = not FlingEnabled
         TextLabel.Text = "\nEnabled: "..tostring(FlingEnabled).."\nTarget: "..tostring(TargetName)or"None"
     elseif Input.KeyCode == _G.ChangePlayerBind then
-        getgenv().TargetName = GetClosestPlayerToCursor()
+        TargetName = GetClosestPlayerToCursor()
         TextLabel.Text = "\nEnabled: "..tostring(FlingEnabled).."\nTarget: "..tostring(TargetName)or"None"
     end
 end)
@@ -103,7 +103,7 @@ Player.CharacterAdded:Connect(function(NewCharacter)
 end)
 
 game:GetService("RunService").Stepped:Connect(function()
-    if getgenv().FlingEnabled and TargetName then
+    if FlingEnabled and TargetName then
         local TPlr, TChar, TRP, TH = ReturnTargetCharacter(TargetName)
         local Root = GetRoot(Player.Character)
         if TRP and TRP.CFrame and Root and TH then
@@ -111,7 +111,7 @@ game:GetService("RunService").Stepped:Connect(function()
             Root.CFrame = CFrame.lookAt(Root.Position, TRP.Position)
             Camera.CameraSubject = TH
         end
-    elseif not getgenv().FlingEnabled then
+    elseif not FlingEnabled then
         Camera.CameraSubject = Humanoid
     end
 end)
