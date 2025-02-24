@@ -32,8 +32,6 @@ local function CheckWhiteList(Plr)
     return false
 end
 
-local bool = false
-
 local function CheckGun()
     local Bindable = Instance.new("BindableFunction")
     for i, v in pairs(workspace:GetDescendants()) do
@@ -67,9 +65,8 @@ local function CheckGun()
                 Callback = Bindable;
                 Duration = 10
             })
-            end
         end
-    end)
+    end
 end
 
 Player.CharacterAdded:Connect(function(NewCharacter)
