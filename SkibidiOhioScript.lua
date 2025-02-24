@@ -136,8 +136,8 @@ task.spawn(function()
 			SayChatRandomMessage("gl")
 			bool = true
 		end
-		task.wait(tonumber(math.random(15, 30)))
-		SayChatRandomMessage()
+		--task.wait(tonumber(math.random(15, 30)))
+		--SayChatRandomMessage()
 	end
 end)
 
