@@ -43,7 +43,7 @@ local function CheckGun()
                     local Pos = RootPart.CFrame
                     if v then
                         RootPart.CFrame = v.CFrame
-                        task.wait(.5)
+                        task.wait(.2)
                         RootPart.CFrame = Pos
                     else
                         StarterGui:SetCore("SendNotification", {
