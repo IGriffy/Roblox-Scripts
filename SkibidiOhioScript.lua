@@ -107,8 +107,8 @@ game:GetService("RunService").Stepped:Connect(function()
         local TPlr, TChar, TRP, TH = ReturnTargetCharacter(TargetName)
         local Root = GetRoot(Player.Character)
         if TRP and TRP.CFrame and Root and TH then
-            Root.CFrame = CFrame.new(TRP.CFrame.Position + Vector3.new(ReturnRandomNum(-3,3), 0, ReturnRandomNum(-3,3)))*RootPart.CFrame.Rotation
-            Root.CFrame = CFrame.lookAt(RootPart.Position, TRP.Position)
+            Root.CFrame = CFrame.new(TRP.CFrame.Position + Vector3.new(ReturnRandomNum(-3,3), 0, ReturnRandomNum(-3,3)))*Root.CFrame.Rotation
+            Root.CFrame = CFrame.lookAt(Root.Position, TRP.Position)
             Camera.CameraSubject = TH
         end
     else
