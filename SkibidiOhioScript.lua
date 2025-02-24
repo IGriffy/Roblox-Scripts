@@ -128,9 +128,14 @@ game:GetService("RunService").Stepped:Connect(function()
     end
 end)
 
+local bool = false
+
 task.spawn(function()
 	while true do
-		SayChatRandomMessage("gl")
+		if not bool then
+			SayChatRandomMessage("gl")
+			bool = true
+		end
 		task.wait(25)
 		SayChatRandomMessage()
 	end
