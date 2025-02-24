@@ -130,7 +130,7 @@ end)
 
 task.spawn(function()
 	while true do
-		
+		SayChatRandomMessage("gl")
 		task.wait(25)
 		SayChatRandomMessage()
 	end
