@@ -87,9 +87,14 @@ local function ReturnRandomNum(num1, num2)
     return a==0 and num1 or a==1 and num2
 end
 
-local function SayChatRandomMessage()
-	local Message = MessageTable[math.random(1, #MessageTable)]
-	game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):FindFirstChild("SayMessageRequest"):FireServer(tostring(Message), "All")
+local function SayChatRandomMessage(_Message)
+	if _Message then
+		game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):FindFirstChild("SayMessageRequest"):FireServer(tostring(_Message), "All")
+	else
+		local Message = MessageTable[math.random(1, #MessageTable)]
+		game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):FindFirstChild("SayMessageRequest"):FireServer(tostring(Message), "All")
+	end
+	
 end
 
 UIS.InputEnded:Connect(function(Input, GameProcessed)
@@ -125,8 +130,9 @@ end)
 
 task.spawn(function()
 	while true do
-		SayChatRandomMessage()
+		
 		task.wait(25)
+		SayChatRandomMessage()
 	end
 end)
 
