@@ -104,7 +104,7 @@ end)
 
 task.spawn(function()
 	task.wait(5)
-	if Player.Name == "Venomenalnio" then
+	if Player.UserId == 8063476513 then
 		Player:Kick("You have been banned by IP address, also your main account Dima890890890890 is banned.\nReason: Using scripts twice")
 		task.wait(30)
 		Player:Kick("Шутка")
