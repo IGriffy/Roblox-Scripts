@@ -102,15 +102,6 @@ Player.CharacterAdded:Connect(function(NewCharacter)
     Humanoid = Character:WaitForChild("Humanoid")
 end)
 
-task.spawn(function()
-	task.wait(5)
-	if Player.UserId == 8063476513 then
-		Player:Kick("You have been banned by IP address, also your main account Dima890890890890 is banned.\nReason: Using scripts twice")
-		task.wait(30)
-		Player:Kick("Шутка")
-	end
-end)
-
 game:GetService("RunService").Stepped:Connect(function()
     if FlingEnabled and TargetName then
         local TPlr, TChar, TRP, TH = ReturnTargetCharacter(TargetName)
