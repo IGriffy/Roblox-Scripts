@@ -128,7 +128,7 @@ game:GetService("RunService").Stepped:Connect(function()
     end
 end)
 
-local bool = false
+--[[local bool = false
 
 task.spawn(function()
 	while true do
@@ -141,7 +141,7 @@ task.spawn(function()
 	end
 end)
 
-
+]]
 local Map = workspace:FindFirstChild("Map")
 local Borders = Map:FindFirstChild("ArenaSurface"):FindFirstChild("Borders")
 
