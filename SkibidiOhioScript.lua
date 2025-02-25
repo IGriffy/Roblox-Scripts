@@ -127,7 +127,7 @@ game:GetService("RunService").Stepped:Connect(function()
         Camera.CameraSubject = Player.Character:FindFirstChild("Humanoid")
     end
 end)
---[[
+
 local bool = false
 
 task.spawn(function()
@@ -148,5 +148,5 @@ local Borders = Map:FindFirstChild("ArenaSurface"):FindFirstChild("Borders")
 if Borders then
 	Borders:Destroy()
 end
-]]
+
 getgenv().SkibidiOhioScript = true
