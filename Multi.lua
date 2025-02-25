@@ -15,7 +15,6 @@ local RootPart = Character:FindFirstChild("HumanoidRootPart")
 local Mouse = Player:GetMouse()
 local Camera = workspace.CurrentCamera
 
-getgenv().CanCollideFalseList = {"HumanoidRootPart", "Left Leg", "Right Arm", "Right Leg"}
 getgenv().NoClipEnabled = false
 getgenv().Flying = false
 getgenv().FlySpeed = 0.5
@@ -38,7 +37,7 @@ local function ToggleNoClip()
 			if NoClipEnabled then
 				Part.CanCollide = false
 			else
-				Part.CanCollide = not table.find(CanCollideFalseList, Part.Name)
+				Part.CanCollide = true
 			end
 		end
 	end
@@ -92,9 +91,11 @@ task.spawn(function()
 		if IsPlusKeyHeld == true then
 			FlySpeed = FlySpeed + 0.1
 		end
+
 		if IsMinusKeyHeld == true then
 			FlySpeed = math.max(0.1, FlySpeed - 0.1)
 		end
+
         TextLabel.Text = "Fly speed :  "..(string.format("%.1f", FlySpeed)).."\nNoclip......:  "..tostring(NoClipEnabled and "Enabled" or not NoClipEnabled and "Disabled")
 		task.wait(.15)
 	end
