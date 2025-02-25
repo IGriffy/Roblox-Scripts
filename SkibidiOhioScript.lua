@@ -1,3 +1,6 @@
+_G.FlingEnabledBind = Enum.KeyCode.X
+_G.ChangePlayerBind = Enum.KeyCode.C
+
 if _G.FlingEnabledBind == nil then print("Bind 'FlingEnabledBind' not founded") return end
 if _G.ChangePlayerBind == nil then print("Bind 'ChangePlayerBind' not founded") return end
 if getgenv().SkibidiOhioScript then print("SkibidiOhioScript alredy executed!") return end
@@ -15,8 +18,9 @@ local Humanoid = Character:FindFirstChild("Humanoid")
 local Mouse = Player:GetMouse()
 local Camera = workspace.CurrentCamera
 
-local TargetName = nil
-local FlingEnabled = false
+getgenv().TargetName = nil
+getgenv().FlingEnabled = false
+getgenv().NoClipEnabled = false
 
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Parent = CoreGui
@@ -94,7 +98,18 @@ local function SayChatRandomMessage(_Message)
 		local Message = MessageTable[math.random(1, #MessageTable)]
 		game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):FindFirstChild("SayMessageRequest"):FireServer(tostring(Message), "All")
 	end
-	
+end
+
+local function ToggleNoClip()
+	for _, Part in ipairs(Character:GetChildren()) do
+		if Part:IsA("BasePart") then
+			if NoClipEnabled then
+				Part.CanCollide = false
+			else
+				Part.CanCollide = true
+			end
+		end
+	end
 end
 
 UIS.InputEnded:Connect(function(Input, GameProcessed)
@@ -114,22 +129,31 @@ Player.CharacterAdded:Connect(function(NewCharacter)
     Humanoid = Character:WaitForChild("Humanoid")
 end)
 
-game:GetService("RunService").Stepped:Connect(function()
+RunService.PreRender:Connect(function()
     if FlingEnabled and TargetName then
+        NoClipEnabled = true
         local TPlr, TChar, TRP, TH = ReturnTargetCharacter(TargetName)
         local Root = GetRoot(Player.Character)
-        if TRP and TRP.CFrame and Root and TH then
-            Root.CFrame = CFrame.new(TRP.CFrame.Position + Vector3.new(ReturnRandomNum(-3,3), 0, ReturnRandomNum(-3,3)))*Root.CFrame.Rotation
+
+        if TRP and TRP.CFrame and Root and TH.Health ~= 0 then
+            Root.CFrame = CFrame.new(TRP.CFrame.Position + Vector3.new(ReturnRandomNum(-5,5), 0, ReturnRandomNum(-5,5)))*Root.CFrame.Rotation
             Root.CFrame = CFrame.lookAt(Root.Position, TRP.Position)
             Camera.CameraSubject = TH
+        elseif TChar and TH.Health == 0 then
+            Camera.CameraSubject = Player.Character:FindFirstChild("Humanoid")
+            NoClipEnabled = false
         end
+
     elseif not FlingEnabled then
         Camera.CameraSubject = Player.Character:FindFirstChild("Humanoid")
+        NoClipEnabled = false
     end
+    ToggleNoClip()
 end)
 
 local Map = workspace:FindFirstChild("Map") or false
-local Borders = Map:FindFirstChild("ArenaSurface"):FindFirstChild("Borders") or false
+local ArenaSurface = Map and Map:FindFirstChild("ArenaSurface") or false
+local Borders = ArenaSurface and ArenaSurface:FindFirstChild("Borders") or false
 
 if Borders then
 	Borders:Destroy()
