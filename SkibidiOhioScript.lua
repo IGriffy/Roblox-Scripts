@@ -128,22 +128,8 @@ game:GetService("RunService").Stepped:Connect(function()
     end
 end)
 
---[[local bool = false
-
-task.spawn(function()
-	while true do
-		if not bool then
-			SayChatRandomMessage("gl")
-			bool = true
-		end
-		--task.wait(tonumber(math.random(15, 30)))
-		--SayChatRandomMessage()
-	end
-end)
-
-]]
-local Map = workspace:FindFirstChild("Map")
-local Borders = Map:FindFirstChild("ArenaSurface"):FindFirstChild("Borders")
+local Map = workspace:FindFirstChild("Map") or false
+local Borders = Map:FindFirstChild("ArenaSurface"):FindFirstChild("Borders") or false
 
 if Borders then
 	Borders:Destroy()
