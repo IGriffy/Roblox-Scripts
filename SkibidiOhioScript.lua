@@ -1,6 +1,3 @@
-_G.FlingEnabledBind = Enum.KeyCode.X
-_G.ChangePlayerBind = Enum.KeyCode.C
-
 if _G.FlingEnabledBind == nil then print("Bind 'FlingEnabledBind' not founded") return end
 if _G.ChangePlayerBind == nil then print("Bind 'ChangePlayerBind' not founded") return end
 if getgenv().SkibidiOhioScript then print("SkibidiOhioScript alredy executed!") return end
