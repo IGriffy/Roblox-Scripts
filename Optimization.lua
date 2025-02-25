@@ -5,9 +5,7 @@ Light.Technology = Enum.Technology.Voxel
 Light.GlobalShadows = false
 
 local function ObjectOptimize(Object)
-    if Object:IsA("Part") then
-        Object.Material = Enum.Material.SmoothPlastic
-    elseif Object:IsA("MeshPart") then
+    if Object:IsA("Part") or Object:IsA("MeshPart") or Object:IsA("UnionOperation") then
         Object.Material = Enum.Material.SmoothPlastic
     elseif Object:IsA("Model") then
         for _, obj in pairs(Object:GetDescendants()) do
