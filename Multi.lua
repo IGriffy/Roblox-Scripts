@@ -15,6 +15,7 @@ local RootPart = Character:FindFirstChild("HumanoidRootPart")
 local Mouse = Player:GetMouse()
 local Camera = workspace.CurrentCamera
 
+getgenv().CanCollideFalseList = {"HumanoidRootPart", "Left Leg", "Right Arm", "Right Leg"}
 getgenv().NoClipEnabled = false
 getgenv().Flying = false
 getgenv().FlySpeed = 0.5
@@ -37,7 +38,7 @@ local function ToggleNoClip()
 			if NoClipEnabled then
 				Part.CanCollide = false
 			else
-				Part.CanCollide = true
+				Part.CanCollide = not table.find(CanCollideFalseList, Part.Name)
 			end
 		end
 	end
