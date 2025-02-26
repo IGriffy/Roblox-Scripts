@@ -1,8 +1,14 @@
-if BoxAdornmentESPNeadoScriptExecuted then print("BoxAdornment ESP script already executed") return end
+----------------------- Check's ---------------------
+
+if getgenv().BoxAdornmentESPNeadoScriptExecuted then print("BoxAdornment ESP script already executed") return end
+
+--------------------- Service's ---------------------
 
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
+
+----------------------- Var's -----------------------
 
 local Character = Player.Character or Player.CharacterAdded:Wait()
 local RootPart = Character:FindFirstChild("HumanoidRootPart")
@@ -11,6 +17,8 @@ local Humanoid = Character:FindFirstChild("Humanoid")
 local Folder = Instance.new("Folder")
 Folder.Name = "_BoxHandleAdornment_Players_"
 Folder.Parent = CoreGui
+
+-------------------- Function's ---------------------
 
 local function ChangeBHA(Object, Color)
     local ObjectsFolder = Folder:FindFirstChild(Object.Name) or Instance.new("Folder", Folder)
@@ -39,24 +47,30 @@ local function CheckWhiteList(Plr)
     return false
 end
 
+------------------- Connection's --------------------
+
 Players.PlayerRemoving:Connect(function(player)
     local a = Folder:FindFirstChild(player.Name):Destroy()
     if a then a:Destroy() end
 end)
 
-while true do
-    for _, Plr in Players:GetChildren() do
-        if Plr ~= Player and Plr.Character then
-            if CheckWhiteList(Plr) then
-                ChangeBHA(Plr.Character, Color3.fromRGB(255,255,0))
-            elseif Plr.TeamColor ~= Player.TeamColor then
-                ChangeBHA(Plr.Character, Color3.fromRGB(255,0,0))
-            elseif Plr.TeamColor == Player.TeamColor then
-                ChangeBHA(Plr.Character, Color3.fromRGB(0,0,255))
+---------------------- Other -----------------------
+
+task.spawn(function()
+    while true do
+        for _, Plr in Players:GetChildren() do
+            if Plr ~= Player and Plr.Character then
+                if CheckWhiteList(Plr) then
+                    ChangeBHA(Plr.Character, Color3.fromRGB(255,255,0))
+                elseif Plr.TeamColor ~= Player.TeamColor then
+                    ChangeBHA(Plr.Character, Color3.fromRGB(255,0,0))
+                elseif Plr.TeamColor == Player.TeamColor then
+                    ChangeBHA(Plr.Character, Color3.fromRGB(0,0,255))
+                end
             end
         end
+        task.wait(1)
     end
-    task.wait(1)
-end
+end)
 
 getgenv().BoxAdornmentESPNeadoScriptExecuted = true
