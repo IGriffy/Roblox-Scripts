@@ -1,4 +1,9 @@
-if UniversalNeadoScriptExecuted then print("Universal script already executed") return end
+----------------------- Check -----------------------
+
+if getgenv().UniversalNeadoScriptExecuted then print("Universal script already executed") return end
+if _G.BindTeleport == nil then print("Bind 'BindTeleport' not founded") return end
+if _G.BindNoclip == nil then print("Bind 'BindNoclip' not founded") return end
+if _G.BindFly == nil then print("Bind 'BindFly' not founded") return end
 
 --------------------- Service's ---------------------
 
@@ -72,6 +77,8 @@ local function StartFlying()
 	Humanoid.PlatformStand = false
 end
 
+---------------------- Other -----------------------
+
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Parent = CoreGui
 local TextLabel = Instance.new("TextLabel")
@@ -85,22 +92,21 @@ TextLabel.TextStrokeTransparency = 0
 TextLabel.TextSize = 15
 TextLabel.Parent = ScreenGui
 
-------------------- Connection's --------------------
-
 task.spawn(function()
 	while true do
 		if IsPlusKeyHeld == true then
 			FlySpeed = FlySpeed + 0.1
 		end
-
 		if IsMinusKeyHeld == true then
 			FlySpeed = math.max(0.1, FlySpeed - 0.1)
 		end
-
+			
         TextLabel.Text = "Fly speed :  "..(string.format("%.1f", FlySpeed)).."\nNoclip......:  "..tostring(NoClipEnabled and "Enabled" or not NoClipEnabled and "Disabled")
 		task.wait(.15)
 	end
 end)
+
+------------------- Connection's --------------------
 
 UIS.InputBegan:Connect(function(Input, GameProcessed)
     if GameProcessed then return end
@@ -148,5 +154,7 @@ Player.CharacterAdded:Connect(function(newCharacter)
 	Humanoid = Character:WaitForChild("Humanoid")
 	RootPart = Character:WaitForChild("HumanoidRootPart")
 end)
+
+---------------------- Other -----------------------
 
 getgenv().UniversalNeadoScriptExecuted = true
