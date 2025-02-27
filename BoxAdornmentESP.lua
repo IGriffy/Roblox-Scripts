@@ -50,7 +50,7 @@ end
 ------------------- Connection's --------------------
 
 Players.PlayerRemoving:Connect(function(player)
-    local a = Folder:FindFirstChild(player.Name):Destroy()
+    local a = Folder:FindFirstChild(player.Name)
     if a then a:Destroy() end
 end)
 
