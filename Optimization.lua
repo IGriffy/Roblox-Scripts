@@ -1,6 +1,6 @@
 ----------------------- Check -----------------------
 
-if OptimizationNeadoScrptExecuted then print("Optimization script already executed") return end
+if getgenv().OptimizationNeadoScrptExecuted then print("Optimization script already executed") return end
 
 --------------------- Service's ---------------------
 
@@ -25,14 +25,14 @@ end
 
 ------------------- Connection's --------------------
 
-workspace.ChildAdded:Connect(function(obj)
+workspace.ChildAdded:Connect(function(Object)
     ObjectOptimize(obj)
 end)
 
 ---------------------- Other -----------------------
 
-for _, obj in pairs(workspace:GetDescendants()) do
-    ObjectOptimize(obj)
+for _, Object in pairs(workspace:GetDescendants()) do
+    ObjectOptimize(Object)
 end
 
 getgenv().OptimizationNeadoScrptExecuted = true
