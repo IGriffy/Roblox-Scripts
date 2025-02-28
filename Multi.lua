@@ -36,11 +36,11 @@ local function TeleportToMouse()
 end
 
 local function ToggleNoClip()
-	NoClipEnabled = not NoClipEnabled
+	getgenv().NoClipEnabled = not getgenv().NoClipEnabled
 
 	for _, Part in ipairs(Character:GetChildren()) do
 		if Part:IsA("BasePart") then
-			if NoClipEnabled then
+			if getgenv().NoClipEnabled then
 				Part.CanCollide = false
 			else
 				Part.CanCollide = not table.find(CanCollideFalseList, Part.Name)
@@ -67,7 +67,7 @@ local function StartFlying()
 			RootPart.AssemblyLinearVelocity = Vector3.zero
 			RootPart.AssemblyAngularVelocity = Vector3.zero
 
-			CurrentCF += add * FlySpeed
+			CurrentCF += add * getgenv().FlySpeed
 			RootPart.CFrame = CFrame.lookAt(
 				CurrentCF.Position,
 				CurrentCF.Position + (Camera.CFrame.LookVector * 2)
@@ -95,13 +95,13 @@ TextLabel.Parent = ScreenGui
 task.spawn(function()
 	while true do
 		if IsPlusKeyHeld == true then
-			FlySpeed = FlySpeed + 0.1
+			getgenv().FlySpeed = getgenv().FlySpeed + 0.1
 		end
 		if IsMinusKeyHeld == true then
-			FlySpeed = math.max(0.1, FlySpeed - 0.1)
+			getgenv().FlySpeed = math.max(0.1, getgenv().FlySpeed - 0.1)
 		end
 			
-        TextLabel.Text = "Fly speed :  "..(string.format("%.1f", FlySpeed)).."\nNoclip......:  "..tostring(NoClipEnabled and "Enabled" or not NoClipEnabled and "Disabled")
+        TextLabel.Text = "Fly speed :  "..(string.format("%.1f", getgenv().FlySpeed)).."\nNoclip......:  "..tostring(getgenv().NoClipEnabled and "Enabled" or not getgenv().NoClipEnabled and "Disabled")
 		task.wait(.15)
 	end
 end)
@@ -111,35 +111,35 @@ end)
 UIS.InputBegan:Connect(function(Input, GameProcessed)
     if GameProcessed then return end
 	if Input.KeyCode == Enum.KeyCode.Equals then
-		IsPlusKeyHeld = true
+		getgenv().IsPlusKeyHeld = true
 	elseif Input.KeyCode == Enum.KeyCode.KeypadPlus then
-		IsPlusKeyHeld = true
+		getgenv().IsPlusKeyHeld = true
 	elseif Input.KeyCode == Enum.KeyCode.Minus then
-		IsMinusKeyHeld = true
+		getgenv().IsMinusKeyHeld = true
 	elseif Input.KeyCode == Enum.KeyCode.KeypadMinus then
-		IsMinusKeyHeld = true
+		getgenv().IsMinusKeyHeld = true
 	end
-    print("\nFly speed: "..FlySpeed.."\nInput key: "..Input.KeyCode.Name.."\nIs plus key held: "..tostring(IsPlusKeyHeld).."\nIs minus key held: "..tostring(IsPlusKeyHeld))
+    print("\nFly speed: "..getgenv().FlySpeed.."\nInput key: "..Input.KeyCode.Name.."\nIs plus key held: "..tostring(getgenv().IsPlusKeyHeld).."\nIs minus key held: "..tostring(getgenv().IsPlusKeyHeld))
 end)
 
 UIS.InputEnded:Connect(function(Input, GameProcessed)
     if GameProcessed then return end
 	if Input.KeyCode == Enum.KeyCode.Equals then
-		IsPlusKeyHeld = false
+		getgenv().IsPlusKeyHeld = false
 	elseif Input.KeyCode == Enum.KeyCode.KeypadPlus then
-		IsPlusKeyHeld = false
+		getgenv().IsPlusKeyHeld = false
 	elseif Input.KeyCode == Enum.KeyCode.Minus then
-		IsMinusKeyHeld = false
+		getgenv().IsMinusKeyHeld = false
 	elseif Input.KeyCode == Enum.KeyCode.KeypadMinus then
-		IsMinusKeyHeld = false
+		getgenv().IsMinusKeyHeld = false
 	end
 end)
 
 UIS.InputEnded:Connect(function(Input, GameProcessed)
     if GameProcessed then return end
 	if Input.KeyCode == _G.BindFly then
-		Flying = not Flying
-		if Flying then
+		getgenv().Flying = not getgenv().Flying
+		if getgenv().Flying then
 			StartFlying()
 		end
     elseif Input.KeyCode == _G.BindTeleport then
