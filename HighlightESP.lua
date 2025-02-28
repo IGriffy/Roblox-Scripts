@@ -1,6 +1,7 @@
 ----------------------- Check's ---------------------
 
-if HighlightESPNeadoScriptExecuted then print("Highlight ESP script already executed") return end
+if getgenv().HighlightESPNeadoScriptExecuted then print("Highlight ESP script already executed") return end
+if _G.WhiteList == nil then print("Not founded 'WhiteList'") return end
 
 --------------------- Service's ---------------------
 
@@ -27,7 +28,7 @@ local function ChangeHighlight(Object, FillColor, FillTransparency, OutlineColor
 end
 
 local function CheckWhiteList(Plr)
-    for _, name in ipairs(_G.WhiteList) do
+    for _, name in pairs(_G.WhiteList) do
         if name == Plr.Name then
             return true
         end
