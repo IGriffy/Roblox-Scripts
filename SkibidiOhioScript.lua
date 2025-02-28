@@ -165,3 +165,4 @@ LocalPlayer.CharacterAdded:Connect(function(NewCharacter)
 end)
 
 getgenv().SkibidiOhioScript = true
+--Nah
