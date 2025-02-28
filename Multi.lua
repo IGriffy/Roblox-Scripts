@@ -1,4 +1,4 @@
------------------------ Check -----------------------hhhh
+----------------------- Check -----------------------
 
 if getgenv().UniversalNeadoScriptExecuted then print("Universal script already executed") return end
 if _G.BindTeleport == nil then print("Bind 'BindTeleport' not founded") return end
