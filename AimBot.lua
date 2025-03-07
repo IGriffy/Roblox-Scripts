@@ -1,12 +1,22 @@
+--[[
+_G.WhiteList = {""}
+_G.TargetPart = "Torso"
+_G.CircleRadius = 100
+_G.TeamCheck = false
+
+_G.BindAimEnabled = Enum.KeyCode.Z
+_G.HoldAimBind = Enum.KeyCode.X
+]]--
+
 ----------------------- Check's ---------------------
 
 if getgenv().ScriptExecuted then print("AimBot already executed") return end
-if _G.BindAimEnabled then print("Bind 'BindAimEnabled' not founded") return end
-if _G.HoldAimBind then print("Bind 'HoldAimBind' not founded") return end
-if _G.CircleRadius then print("not founded 'CircleRadius'") return end
-if _G.TargetPart then print("not founded 'TargetPart'") return end
-if _G.WhiteList then print("not founded 'WhiteList'") return end
-if _G.TeamCheck then print("not founded 'TeamCheck'") return end
+if _G.BindAimEnabled == nil then print("Bind 'BindAimEnabled' not founded") return end
+if _G.HoldAimBind == nil then print("Bind 'HoldAimBind' not founded") return end
+if _G.CircleRadius == nil then print("not founded 'CircleRadius'") return end
+if _G.TargetPart == nil then print("not founded 'TargetPart'") return end
+if _G.WhiteList == nil then print("not founded 'WhiteList'") return end
+if _G.TeamCheck == nil then print("not founded 'TeamCheck'") return end
 
 ---------------------- Config -----------------------
 
@@ -75,7 +85,7 @@ local function ReturnTargetPart()
 end
 
 local function AimAt(Target)
-    if Target.Parent:FindFirstChild("Humanoid") and Target.Parent.Humanoid.Health ~= 0 then
+    if Target:FindFirstChild("Humanoid") and Target.Humanoid.Health ~= 0 then
         local Direction = (Target.Position - Camera.CFrame.Position).Unit
         Camera.CFrame = CFrame.new(Camera.CFrame.Position, Camera.CFrame.Position + Direction)
     end
