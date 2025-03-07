@@ -1,12 +1,11 @@
---[[
-_G.WhiteList = {""}
+--[[_G.WhiteList = {""}
 _G.TargetPart = "Torso"
 _G.CircleRadius = 100
 _G.TeamCheck = false
 
 _G.BindAimEnabled = Enum.KeyCode.Z
 _G.HoldAimBind = Enum.KeyCode.X
-]]--
+]]
 
 ----------------------- Check's ---------------------
 
@@ -85,7 +84,7 @@ local function ReturnTargetPart()
 end
 
 local function AimAt(Target)
-    if Target:FindFirstChild("Humanoid") and Target.Humanoid.Health ~= 0 then
+    if Target.Parent:FindFirstChild("Humanoid") and Target.Parent.Humanoid.Health ~= 0 then
         local Direction = (Target.Position - Camera.CFrame.Position).Unit
         Camera.CFrame = CFrame.new(Camera.CFrame.Position, Camera.CFrame.Position + Direction)
     end
