@@ -15,7 +15,7 @@ end
 ----------------------- Check's ---------------------
 
 if getgenv().ScriptExecuted then print("AimBot already executed") return end
-if _G.BindAimHoldEnabledBind == nil then Setup(); print("Bind 'BindAimHoldEnabledBind' not founded") return end
+if _G.BindAimHoldEnabled == nil then Setup(); print("Bind 'BindAimHoldEnabled' not founded") return end
 if _G.BindAimEnabled == nil then Setup(); print("Bind 'BindAimEnabled' not founded") return end
 if _G.CircleRadius == nil then Setup(); print("Not founded 'CircleRadius'") return end
 if _G.TargetPart == nil then Setup(); print("Not founded 'TargetPart'") return end
@@ -185,13 +185,13 @@ UIS.InputEnded:Connect(function(Input, gameProcessed)
     if not gameProcessed and Input.KeyCode == _G.BindAimEnabled then
         SwitchScriptEnabled()
     end
-    if not gameProcessed and Input.KeyCode == _G.BindAimHoldEnabledBind then
+    if not gameProcessed and Input.KeyCode == _G.BindAimHoldEnabled then
         OnKeyDown()
     end
 end)
 
 UIS.InputBegan:Connect(function(Input, gameProcessed)
-    if not gameProcessed and Input.KeyCode == _G.BindAimHoldEnabledBind then
+    if not gameProcessed and Input.KeyCode == _G.BindAimHoldEnabled then
         OnKeyUp()
     end
 end)
