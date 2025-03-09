@@ -1,7 +1,21 @@
+----------------------- Setup -----------------------
+
+local function Setup()
+    local Setup = '_G.WhiteList = {"NickName1", "NickName2"}\n\nloadstring(game:HttpGet("https://raw.githubusercontent.com/IGriffy/Roblox-Scripts/refs/heads/main/HighlightESP.lua"))()'
+
+    game:GetService("StarterGui"):SetCore("SendNotification",{
+        Title = "Notification";
+        Text = "Script Config Copied !";
+        Duration = 10;
+    })
+    
+    setclipboard(Setup)
+end
+
 ----------------------- Check's ---------------------
 
 if getgenv().HighlightESPNeadoScriptExecuted then print("Highlight ESP script already executed") return end
-if _G.WhiteList == nil then print("Not founded 'WhiteList'") return end
+if _G.WhiteList == nil then Setup(); print("Not founded 'WhiteList'") return end
 
 --------------------- Service's ---------------------
 
