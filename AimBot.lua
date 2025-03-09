@@ -26,7 +26,9 @@ if _G.TeamCheck == nil then Setup(); print("not founded 'TeamCheck'") return end
 
 getgenv().ScriptEnabled = true
 getgenv().AimEnabled = false
-getgenv().LockedTarget = false
+
+getgenv().CurrentTarget = nil
+getgenv().LockedTarget = nil
 
 --------------------- Service's ---------------------
 
@@ -56,6 +58,8 @@ local function CheckWhiteList(Plr)
 end
 
 local function GetClosestPlayerToCursor()
+    if getgenv().LockedTarget and getgenv().CurrentTarget then return getgenv().LockedTarget end
+
     local ClosestDistance = math.huge
     local ClosestPlayer = nil
     
@@ -171,13 +175,27 @@ end)
 
 RunService.RenderStepped:Connect(function()
     if getgenv().ScriptEnabled and getgenv().AimEnabled then
-        local TargetPlr = GetClosestPlayerToCursor()
-        if TargetPlr then
-            local TargetTeam = Players:GetPlayerFromCharacter(TargetPlr).Team
-            if not _G.TeamCheck or (Player.Team ~= TargetTeam) then
-                AimAt(TargetPlr:FindFirstChild(ReturnTargetPart()))
+        if not getgenv().LockedTarget then
+            local TargetPlr = GetClosestPlayerToCursor()
+            if TargetPlr then
+                local TargetTeam = Players:GetPlayerFromCharacter(TargetPlr).Team
+                if not _G.TeamCheck or (Player.Team ~= TargetTeam) then
+                    AimAt(TargetPlr:FindFirstChild(ReturnTargetPart()))
+                    getgenv().LockedTarget = true
+                    getgenv().CurrentTarget = TargetPlr -- Фиксируем цель
+                end
+            end
+        else
+            if getgenv().CurrentTarget and getgenv().CurrentTarget:FindFirstChild("Humanoid") and getgenv().CurrentTarget.Humanoid.Health > 0 then
+                AimAt(getgenv().CurrentTarget:FindFirstChild(ReturnTargetPart()))
+            else
+                getgenv().LockedTarget = false
+                getgenv().CurrentTarget = nil  -- Сбрасываем цель, если она мертва
             end
         end
+    else
+        getgenv().LockedTarget = false
+        getgenv().CurrentTarget = nil  -- Сбрасываем цель при отключении AimBot
     end
 end)
 
