@@ -1,9 +1,23 @@
+----------------------- Setup -----------------------
+
+local function Setup()
+    local Setup = '_G.BindTeleport = Enum.KeyCode.Z\n_G.BindNoclip = Enum.KeyCode.X\n_G.BindFly = Enum.KeyCode.C\n\nloadstring(game:HttpGet("https://raw.githubusercontent.com/IGriffy/Roblox-Scripts/refs/heads/main/Multi.lua"))()'
+
+    game:GetService("StarterGui"):SetCore("SendNotification",{
+        Title = "Notification";
+        Text = "Script Config Copied !";
+        Duration = 10;
+    })
+    
+    setclipboard(Setup)
+end
+
 ----------------------- Check -----------------------
 
 if getgenv().UniversalNeadoScriptExecuted then print("Universal script already executed") return end
-if _G.BindTeleport == nil then print("Bind 'BindTeleport' not founded") return end
-if _G.BindNoclip == nil then print("Bind 'BindNoclip' not founded") return end
-if _G.BindFly == nil then print("Bind 'BindFly' not founded") return end
+if _G.BindTeleport == nil then Setup; print("Bind 'BindTeleport' not founded") return end
+if _G.BindNoclip == nil then Setup; print("Bind 'BindNoclip' not founded") return end
+if _G.BindFly == nil then Setup; print("Bind 'BindFly' not founded") return end
 
 --------------------- Service's ---------------------
 
