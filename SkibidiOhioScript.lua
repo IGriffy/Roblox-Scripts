@@ -1,9 +1,22 @@
+----------------------- Setup -----------------------
+
+local function Setup()
+    local Setup = '_G.FlingEnabledBind = Enum.KeyCode.C\n_G.ChangePlayerBind = Enum.KeyCode.X\n\nloadstring(game:HttpGet("https://raw.githubusercontent.com/IGriffy/Roblox-Scripts/refs/heads/main/SkibidiOhioScript.lua"))()'
+	
+    game:GetService("StarterGui"):SetCore("SendNotification",{
+        Title = "Notification";
+        Text = "Script Config Copied !";
+        Duration = 10;
+    })
+    
+    setclipboard(Setup)
+end
+
 ----------------------- Check -----------------------
 
 if getgenv().SkibidiOhioScript then print("SkibidiOhioScript already executed!") return end
 if _G.FlingEnabledBind == nil then print("Bind 'FlingEnabledBind' not founded") return end
 if _G.ChangePlayerBind == nil then print("Bind 'ChangePlayerBind' not founded") return end
-if game.PlaceId ~= 10449761463 then print("Script don't supported this place") return end
 
 --------------------- Service's ---------------------
 
