@@ -1,6 +1,21 @@
+----------------------- Setup -----------------------
+
+local function Setup()
+    local Setup = '_G.WhiteList = {"NickName1", "NickName2"}\n\nloadstring(game:HttpGet("https://raw.githubusercontent.com/IGriffy/Roblox-Scripts/refs/heads/main/BoxAdornmentESP.lua"))()'
+
+    game:GetService("StarterGui"):SetCore("SendNotification",{
+        Title = "Notification";
+        Text = "Script Config Copied !";
+        Duration = 10;
+    })
+    
+    setclipboard(Setup)
+end
+
 ----------------------- Check's ---------------------
 
 if getgenv().BoxAdornmentESPNeadoScriptExecuted then print("BoxAdornment ESP script already executed") return end
+if _G.WhiteList == nil then Setup(); print("Not founded 'WhiteList'") return end
 
 --------------------- Service's ---------------------
 
