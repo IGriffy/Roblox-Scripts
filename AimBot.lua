@@ -1,21 +1,26 @@
---[[_G.WhiteList = {""}
-_G.TargetPart = "Torso"
-_G.CircleRadius = 100
-_G.TeamCheck = false
+----------------------- Setup -----------------------
 
-_G.BindAimEnabled = Enum.KeyCode.Z
-_G.HoldAimBind = Enum.KeyCode.X
-]]
+local function Setup()
+    local Setup = '---------------------- Binds -----------------------\n--[[\n    Bind settings\n    To bind a function to your own key, specify the desired key after "Enum.KeyCode." For example:\n\n    * Enum.KeyCode.LeftControl\n    * Enum.KeyCode.RightAlt\n    * Enum.KeyCode.B\n    and so on.\n]]--\n\n_G.BindAimHoldEnabled = Enum.KeyCode.X -- Key to hold for aiming\n_G.BindAimEnabled = Enum.KeyCode.Z     -- Key to toggle aiming\n\n---------------------- Other -----------------------\n\n_G.WhiteList = {"piska_bobrafsko", "KingOvCursed", "Crankbread8743", "Luffy_77787"} -- Players on whom AimBot will not work. To add a player, enter their original nickname in quotes, separated by commas.\n_G.TargetPart = "Head" -- The body part AimBot will target. Available options: "Head", "Torso", or "Random" (random selection).\n_G.CircleRadius = 100 -- The radius of the aiming circle.\n_G.TeamCheck = true -- If true, AimBot will not target teammates. If false, it will target teammates.\n\nloadstring(game:HttpGet("https://raw.githubusercontent.com/IGriffy/Roblox-Scripts/refs/heads/main/AimBot.lua"))()'
+
+    game:GetService("StarterGui"):SetCore("SendNotification",{
+        Title = "Notification";
+        Text = "Script Config Copied !";
+        Duration = 10;
+    })
+    
+    setclipboard(Setup)
+end
 
 ----------------------- Check's ---------------------
 
 if getgenv().ScriptExecuted then print("AimBot already executed") return end
-if _G.BindAimEnabled == nil then print("Bind 'BindAimEnabled' not founded") return end
-if _G.HoldAimBind == nil then print("Bind 'HoldAimBind' not founded") return end
-if _G.CircleRadius == nil then print("not founded 'CircleRadius'") return end
-if _G.TargetPart == nil then print("not founded 'TargetPart'") return end
-if _G.WhiteList == nil then print("not founded 'WhiteList'") return end
-if _G.TeamCheck == nil then print("not founded 'TeamCheck'") return end
+if _G.BindAimEnabled == nil then Setup(); print("Bind 'BindAimEnabled' not founded") return end
+if _G.HoldAimBind == nil then Setup(); print("Bind 'HoldAimBind' not founded") return end
+if _G.CircleRadius == nil then Setup(); print("Not founded 'CircleRadius'") return end
+if _G.TargetPart == nil then Setup(); print("Not founded 'TargetPart'") return end
+if _G.WhiteList == nil then Setup(); print("Not founded 'WhiteList'") return end
+if _G.TeamCheck == nil then Setup(); print("not founded 'TeamCheck'") return end
 
 ---------------------- Config -----------------------
 
