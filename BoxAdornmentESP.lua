@@ -1,61 +1,62 @@
 ----------------------- Setup -----------------------
 
-local function Setup()
-    local Setup = '_G.WhiteList = {"NickName1", "NickName2"}\n\nloadstring(game:HttpGet("https://raw.githubusercontent.com/IGriffy/Roblox-Scripts/refs/heads/main/BoxAdornmentESP.lua"))()'
+local function setup()
+    local setupCode = '_G.whiteList = {"NickName1", "NickName2"}\n\nloadstring(game:HttpGet("https://raw.githubusercontent.com/IGriffy/Roblox-Scripts/refs/heads/main/BoxAdornmentESP.lua"))()'
 
     game:GetService("StarterGui"):SetCore("SendNotification",{
         Title = "Notification";
         Text = "Script Config Copied !";
         Duration = 10;
     })
-    
-    setclipboard(Setup)
+
+    setclipboard(setupCode)
 end
 
 ----------------------- Check's ---------------------
 
-if getgenv().BoxAdornmentESPNeadoScriptExecuted then print("BoxAdornment ESP script already executed") return end
-if _G.WhiteList == nil then Setup(); print("Not founded 'WhiteList'") return end
+if getgenv().boxAdornmentESPNeadoScriptExecuted then print("BoxAdornment ESP script already executed!") return end
+if _G.whiteList == nil then setup(); print("Not founded white list!") return end
 
 --------------------- Service's ---------------------
 
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
-local Player = Players.LocalPlayer
+local player = Players.LocalPlayer
 
 ----------------------- Var's -----------------------
 
-local Character = Player.Character or Player.CharacterAdded:Wait()
-local RootPart = Character:FindFirstChild("HumanoidRootPart")
-local Humanoid = Character:FindFirstChild("Humanoid")
+local character = player.Character or player.CharacterAdded:Wait()
+local rootPart = character:FindFirstChild("HumanoidRootPart")
+local humanoid = character:FindFirstChild("Humanoid")
 
-local Folder = Instance.new("Folder")
-Folder.Name = "_BoxHandleAdornment_Players_"
-Folder.Parent = CoreGui
+local boxFolder = Instance.new("Folder")
+boxFolder.Name = "BoxHandleAdornment_Players"
+boxFolder.Parent = CoreGui
 
 -------------------- Function's ---------------------
 
-local function ChangeBHA(Object, Color)
-    local ObjectsFolder = Folder:FindFirstChild(Object.Name) or Instance.new("Folder", Folder)
-    ObjectsFolder.Name = Object.Name
+local function changeBHA(object, color, enabled)
+    local objFolder = boxFolder:FindFirstChild(object.Name) or Instance.new("Folder", boxFolder)
+    objFolder.Name = object.Name
 
-    for i, v in pairs(Object:GetChildren()) do
-        if v:IsA("Part") or v:IsA("MeshPart") then
-            local BoxAdornment = ObjectsFolder:FindFirstChild(Object.Name.."_"..v.Name) or Instance.new("BoxHandleAdornment", ObjectsFolder)
-            BoxAdornment.Size = v.Size
-            BoxAdornment.AlwaysOnTop = true
-            BoxAdornment.Transparency = 0.6
-            BoxAdornment.Adornee = v
-            BoxAdornment.Color3 = Color
-            BoxAdornment.ZIndex = 1
-            BoxAdornment.Name = Object.Name.."_"..v.Name
+    for _, obj in pairs(object:GetChildren()) do
+        if obj:IsA("Part") or obj:IsA("MeshPart") then
+            local b = objFolder:FindFirstChild(object.Name .. "_" .. obj.Name) or Instance.new("BoxHandleAdornment", objFolder)
+            b.Size = obj.Size
+            b.Enabled = enabled
+            b.AlwaysOnTop = true
+            b.Transparency = 0.6
+            b.Adornee = obj
+            b.Color3 = color
+            b.ZIndex = 1
+            b.Name = object.Name .. "_" .. obj.Name
         end
     end
 end
 
-local function CheckWhiteList(Plr)
-    for _, name in ipairs(_G.WhiteList) do
-        if name == Plr.Name then
+local function checkWhiteList(plr)
+    for _, name in ipairs(_G.whiteList) do
+        if name == plr.Name then
             return true
         end
     end
@@ -64,28 +65,32 @@ end
 
 ------------------- Connection's --------------------
 
-Players.PlayerRemoving:Connect(function(player)
-    local a = Folder:FindFirstChild(player.Name)
-    if a then a:Destroy() end
+Players.PlayerRemoving:Connect(function(plr)
+    local box = boxFolder:FindFirstChild(plr.Name)
+    if box then box:Destroy() end
 end)
 
 ---------------------- Other -----------------------
 
-task.spawn(function()
-    while true do
-        for _, Plr in Players:GetChildren() do
-            if Plr ~= Player and Plr.Character then
-                if CheckWhiteList(Plr) then
-                    ChangeBHA(Plr.Character, Color3.fromRGB(255,255,0))
-                elseif Plr.TeamColor ~= Player.TeamColor then
-                    ChangeBHA(Plr.Character, Color3.fromRGB(255,0,0))
-                elseif Plr.TeamColor == Player.TeamColor then
-                    ChangeBHA(Plr.Character, Color3.fromRGB(0,0,255))
-                end
-            end
+
+for _, plr in Players:GetChildren() do
+    if plr ~= player and plr.Character then
+        if checkWhiteList(plr) then
+            changeBHA(plr.Character, Color3.fromRGB(255,255,0), true)
+        else
+            changeBHA(plr.Character, plr.TeamColor.Color, true)
         end
-        task.wait(1)
     end
+end
+
+Players.PlayerAdded:Connect(function(plr)
+    plr.CharacterAdded:Connect(function(char)
+        changeBHA(char, plr.TeamColor.Color, true)
+    end)
+
+    plr.CharacterRemoving:Connect(function(char)
+        changeBHA(char, plr.TeamColor.Color, false)
+    end)
 end)
 
-getgenv().BoxAdornmentESPNeadoScriptExecuted = true
+getgenv().boxAdornmentESPNeadoScriptExecuted = true
